@@ -1,0 +1,37 @@
+server:
+  port: 10273
+
+jwt:
+  header: Authorization
+  secret: 1234
+
+# 引入logger日志相关配置
+logging:
+  config: classpath:logback-spring.xml
+
+
+spring:
+  datasource:
+    #   数据源基本配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.18.33:3306/dpe_flowable?&nullCatalogMeansCurrent=true&useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+    username: root
+    password: Cz@123.0
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml # mapper映射包扫描
+  type-aliases-package: com.fir.flow.entity # entity别名
+
+  # 开启mybatis sql日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+flowable:
+  # 关闭定时任务
+  async-executor-activate: false
+
+
+swagger:
+  enable: true

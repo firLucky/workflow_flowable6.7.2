@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fir.flow.mapper.SystemMapper">
+
+<!--    检验用户是否存在-->
+    <select id="checkUsername" resultType="int">
+        SELECT
+            COUNT( user_id )
+        FROM
+            `user`
+        WHERE
+            username = #{username}
+    </select>
+
+<!--    检验用户登录是否有效-->
+    <select id="checkLogin" resultType="com.fir.flow.entity.user.User">
+        SELECT
+            user_id, username, password, name, org_name, dept_name
+        FROM
+            `user`
+        WHERE
+            username = #{username} AND password = #{password}
+    </select>
+
+    <!--    用户id查询用户对象-->
+    <select id="getUserByUserId" resultType="com.fir.flow.entity.user.User">
+        SELECT
+            user_id, username, password, name, org_name, dept_name
+        FROM
+            `user`
+        WHERE
+            user_id = #{userId}
+    </select>
+
+    <!--    查询用户集合-->
+    <select id="getUserList" resultType="com.fir.flow.entity.user.User">
+        SELECT
+            user_id, username, password, name, org_name, dept_name
+        FROM
+            `user`
+    </select>
+
+    <!--  查询指定FlowKey 已绑定用户集合  -->
+    <select id="getUserListByFlowKey" resultType="com.fir.flow.entity.user.User">
+        SELECT
+            u.user_id,
+            u.username,
+            u.PASSWORD,
+            u.NAME,
+            u.org_name,
+            u.dept_name
+        FROM
+            `user` AS u
+                INNER JOIN ( SELECT * FROM `user_flow_key` AS k WHERE k.flow_key = #{taskDefinitionKey} ) AS k ON
+                u.user_id = k.user_id
+    </select>
+
+    <!--  查询指定FlowKey 可设定用户集合  -->
+    <select id="getCanSetUserListByFlowKey" resultType="com.fir.flow.entity.user.User">
+        SELECT
+            u.user_id,
+            u.username,
+            u.PASSWORD,
+            u.NAME,
+            u.org_name,
+            u.dept_name
+        FROM
+            `user` AS u
+        WHERE
+            NOT EXISTS (
+                SELECT 1
+                FROM `user_flow_key` AS k
+                WHERE k.flow_key = #{taskDefinitionKey}
+                  AND u.user_id = k.user_id
+            );
+
+    </select>
+</mapper>

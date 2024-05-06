@@ -1,0 +1,4 @@
+"user_id"	"username"	"password"	"name"	"org_name"	"dept_name"
+"21010838BC2911EDB56900FF8C62F6AG"	"fir"	"123"	"杉"	"总公司"	"业务"
+"5996E7FAC49511EDBAF36C4B90076640"	"jingli"	"123"	"翟经理"	"信息技术有限公司"	"技术"
+"8C804C71C49511EDBAF36C4B90076640"	"zhuguan"	"123"	"叶主管"	"信息技术有限公司"	"行政"

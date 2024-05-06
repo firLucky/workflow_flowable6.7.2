@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "pic.dir",
+      "type": "java.lang.String",
+      "description": "Description for pic.dir."
+    },
+    {
+      "name": "pic.path",
+      "type": "java.lang.String",
+      "description": "Description for pic.path."
+    },
+    {
+      "name": "pic.ip",
+      "type": "java.lang.String",
+      "description": "Description for pic.ip."
+    },
+    {
+      "name": "jwt.header",
+      "type": "java.lang.String",
+      "description": "Description for jwt.header."
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret."
+    }
+  ]
+}
