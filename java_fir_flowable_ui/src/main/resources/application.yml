@@ -1,0 +1,111 @@
+server:
+  port: 25015
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /flow-ui
+spring:
+  application:
+    name: flow-ui-67
+  datasource:
+    #   数据源基本配置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 允许公钥 allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/fir_flowable?&nullCatalogMeansCurrent=true&useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 500MB
+
+#mybatis-plus配置
+mybatis-plus: # mybatis-plus配置
+  #  #指定全局配置文件【二选一】
+  #  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml # mapper映射包扫描
+  type-aliases-package: com.fir.flowable.entity # entity别名
+
+  # 开启mybatis sql日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 引入logger日志相关配置
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: logs
+    name: ${spring.application.name}
+  level:
+    com.lance.flowable: debug
+    org.springframework: info
+    org.flowable.engine.impl.persistence.entity: debug
+    org.flowable.task.service.impl.persistence.entity: debug
+# flowable config
+flowable:
+  common:
+    app:
+      security:
+        type: idm
+      role-prefix:
+      idm-admin:
+        user: admin
+        password: 123456
+  idm:
+    ldap:
+      enabled: false
+    app:
+      admin:
+        user-id: admin
+        password: 123456
+        first-name: Test
+        last-name: Administrator
+        email: test-admin@126.com
+  content:
+    storage:
+      root-folder: data/
+      create-root: true
+  process:
+    definition-cache-limit: 512
+    async:
+      executor:
+        default-async-job-acquire-wait-time: PT5S
+        default-timer-job-acquire-wait-time: PT5S
+  cmmn:
+    async:
+      executor:
+        default-async-job-acquire-wait-time: PT5S
+        default-timer-job-acquire-wait-time: PT5S
+  rest:
+    app:
+      authentication-mode: verify-privilege
+  task:
+    app:
+      rest-enabled: true
+  admin:
+    app:
+      security:
+        encryption:
+          credentials-i-v-spec: j8kdO2hejA9lKmm6
+          credentials-secret-spec: 9FGl73ngxcOoJvmL
+
+  form-field-validation-enabled: false
+  experimental:
+    debugger:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: when_authorized
+      roles: access-admin
+  health:
+    ldap:
+      enabled: false
+
